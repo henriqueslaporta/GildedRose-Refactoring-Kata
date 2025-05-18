@@ -34,7 +34,7 @@ class GildedRose {
                 decreaseQuality(item);
             }
 
-            if (item.sellIn < 0) {
+            if (isPastSellInDate(item)) {
                 if (shouldIncreaseQuality(item)) {
                     if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
                         item.quality = 0;
@@ -65,5 +65,9 @@ class GildedRose {
 
     private boolean shouldIncreaseQuality(Item item) {
         return increaseQualityItems.contains(item.name);
+    }
+
+    private boolean isPastSellInDate(Item item) {
+        return item.sellIn < 0;
     }
 }
