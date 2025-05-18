@@ -20,9 +20,7 @@ class GildedRose {
             }
             item.sellIn = item.sellIn - 1;
 
-            if (!shouldIncreaseQuality(item)) {
-                decreaseQuality(item);
-            } else {
+            if (shouldIncreaseQuality(item)) {
                 increaseQuality(item);
                 if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
                     if (item.sellIn < 10) {
@@ -32,17 +30,19 @@ class GildedRose {
                         increaseQuality(item);
                     }
                 }
+            } else {
+                decreaseQuality(item);
             }
 
             if (item.sellIn < 0) {
-                if (!shouldIncreaseQuality(item)) {
-                    decreaseQuality(item);
-                } else {
+                if (shouldIncreaseQuality(item)) {
                     if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
                         item.quality = 0;
                     } else {
                         increaseQuality(item);
                     }
+                } else {
+                    decreaseQuality(item);
                 }
             }
         }
