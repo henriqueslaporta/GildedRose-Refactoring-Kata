@@ -22,20 +22,10 @@ class GildedRose {
 
             if (shouldIncreaseQuality(item)) {
                 increaseQuality(item);
-                if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                    if (item.sellIn < 10) {
-                        increaseQuality(item);
-                    }
-                    if (item.sellIn < 5) {
-                        increaseQuality(item);
-                    }
-                }
                 if (isPastSellInDate(item)) {
                     increaseQuality(item);
-                    if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                        item.quality = 0;
-                    }
                 }
+                handleBackstagePasses(item);
             } else {
                 decreaseQuality(item);
                 if (isPastSellInDate(item)) {
@@ -66,5 +56,19 @@ class GildedRose {
 
     private boolean isPastSellInDate(Item item) {
         return item.sellIn < 0;
+    }
+
+    private void handleBackstagePasses(Item item) {
+        if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+            if (item.sellIn < 10) {
+                increaseQuality(item);
+            }
+            if (item.sellIn < 5) {
+                increaseQuality(item);
+            }
+            if (isPastSellInDate(item)) {
+                item.quality = 0;
+            }
+        }
     }
 }
