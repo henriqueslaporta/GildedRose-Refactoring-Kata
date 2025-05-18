@@ -93,6 +93,7 @@ class GildedRoseTest {
     void shouldBackstagePassesIncreaseQualityWhenGetOlder() {
         Item[] items = new Item[] {
             new Item("Backstage passes to a TAFKAL80ETC concert", 15, 1),
+            new Item("Backstage passes to a TAFKAL80ETC concert", 11, 1),
         };
 
         GildedRose app = new GildedRose(items);
@@ -100,6 +101,8 @@ class GildedRoseTest {
 
         assertEquals(2, items[0].quality);
         assertEquals(14, items[0].sellIn);
+        assertEquals(2, items[1].quality);
+        assertEquals(10, items[1].sellIn);
     }
 
     @Test
