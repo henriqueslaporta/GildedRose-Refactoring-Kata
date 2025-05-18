@@ -9,9 +9,11 @@ class GildedRose {
 
     public void updateQuality() {
         for (Item item : items) {
-            if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
-                item.sellIn = item.sellIn - 1;
+            if (isALegendaryItem(item)) {
+                continue;
             }
+            item.sellIn = item.sellIn - 1;
+
             if (!item.name.equals("Aged Brie")
                 && !item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
                 if (item.quality > 0) {
@@ -57,5 +59,9 @@ class GildedRose {
                 }
             }
         }
+    }
+
+    private boolean isALegendaryItem(Item item) {
+        return item.name.equals("Sulfuras, Hand of Ragnaros");
     }
 }
