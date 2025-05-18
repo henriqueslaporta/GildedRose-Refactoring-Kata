@@ -7,6 +7,8 @@ import java.util.function.Consumer;
 class GildedRose {
     private static final List<String> increaseQualityItems =
         Arrays.asList("Aged Brie", "Backstage passes to a TAFKAL80ETC concert");
+    private static final int MAX_QUALITY_VALUE = 50;
+    private static final int MIN_QUALITY_VALUE = 0;
 
     Item[] items;
 
@@ -19,7 +21,7 @@ class GildedRose {
             if (isALegendaryItem(item)) {
                 continue;
             }
-            item.sellIn = item.sellIn - 1;
+            item.sellIn -= 1;
 
             if (shouldIncreaseQuality(item)) {
                 updateQuality(item, this::increaseQuality);
@@ -38,14 +40,14 @@ class GildedRose {
     }
 
     private void increaseQuality(Item item) {
-        if (item.quality < 50) {
-            item.quality = item.quality + 1;
+        if (item.quality < MAX_QUALITY_VALUE) {
+            item.quality += 1;
         }
     }
 
     private void decreaseQuality(Item item) {
-        if (item.quality > 0) {
-            item.quality = item.quality - 1;
+        if (item.quality > MIN_QUALITY_VALUE) {
+            item.quality -= 1;
         }
     }
     private boolean isALegendaryItem(Item item) {
