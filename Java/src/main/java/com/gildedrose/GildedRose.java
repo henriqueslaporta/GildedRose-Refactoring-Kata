@@ -22,12 +22,12 @@ class GildedRose {
                 continue;
             }
             item.sellIn -= 1;
-
             if (shouldIncreaseQuality(item)) {
                 updateQuality(item, this::increaseQuality);
                 handleBackstagePasses(item);
             } else {
                 updateQuality(item, this::decreaseQuality);
+                handleConjuredItems(item);
             }
         }
     }
@@ -73,6 +73,12 @@ class GildedRose {
             if (isPastSellInDate(item)) {
                 item.quality = 0;
             }
+        }
+    }
+
+    private void handleConjuredItems(Item item) {
+        if (item.name.equals("Conjured Mana Cake")) {
+            updateQuality(item, this::decreaseQuality);
         }
     }
 }

@@ -153,4 +153,20 @@ class GildedRoseTest {
         assertEquals(-2, items[1].sellIn);
     }
 
+    @Test
+    void shouldConjuredItemDegradeTwiceFastThanNormalItems() {
+        Item[] items = new Item[] {
+            new Item("Conjured Mana Cake", 5, 10),
+            new Item("Conjured Mana Cake", -1, 10)
+        };
+
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+
+        assertEquals(8, items[0].quality);
+        assertEquals(4, items[0].sellIn);
+        assertEquals(6, items[1].quality);
+        assertEquals(-2, items[1].sellIn);
+    }
+
 }
