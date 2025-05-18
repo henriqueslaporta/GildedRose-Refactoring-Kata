@@ -1,6 +1,12 @@
 package com.gildedrose;
 
+import java.util.Arrays;
+import java.util.List;
+
 class GildedRose {
+    private static final List<String> increaseQualityItems =
+        Arrays.asList("Aged Brie", "Backstage passes to a TAFKAL80ETC concert");
+
     Item[] items;
 
     public GildedRose(Item[] items) {
@@ -14,8 +20,7 @@ class GildedRose {
             }
             item.sellIn = item.sellIn - 1;
 
-            if (!item.name.equals("Aged Brie")
-                && !item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+            if (!shouldIncreaseQuality(item)) {
                 decreaseQuality(item);
             } else {
                 increaseQuality(item);
@@ -23,7 +28,6 @@ class GildedRose {
                     if (item.sellIn < 10) {
                         increaseQuality(item);
                     }
-
                     if (item.sellIn < 5) {
                         increaseQuality(item);
                     }
@@ -31,14 +35,14 @@ class GildedRose {
             }
 
             if (item.sellIn < 0) {
-                if (!item.name.equals("Aged Brie")) {
-                    if (!item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                        decreaseQuality(item);
-                    } else {
-                        item.quality = item.quality - item.quality;
-                    }
+                if (!shouldIncreaseQuality(item)) {
+                    decreaseQuality(item);
                 } else {
-                    increaseQuality(item);
+                    if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+                        item.quality = 0;
+                    } else {
+                        increaseQuality(item);
+                    }
                 }
             }
         }
@@ -57,5 +61,9 @@ class GildedRose {
     }
     private boolean isALegendaryItem(Item item) {
         return item.name.equals("Sulfuras, Hand of Ragnaros");
+    }
+
+    private boolean shouldIncreaseQuality(Item item) {
+        return increaseQualityItems.contains(item.name);
     }
 }
