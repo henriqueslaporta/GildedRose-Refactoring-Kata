@@ -2,6 +2,7 @@ package com.gildedrose;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 
 class GildedRose {
     private static final List<String> increaseQualityItems =
@@ -21,17 +22,18 @@ class GildedRose {
             item.sellIn = item.sellIn - 1;
 
             if (shouldIncreaseQuality(item)) {
-                increaseQuality(item);
-                if (isPastSellInDate(item)) {
-                    increaseQuality(item);
-                }
+                updateQuality(item, this::increaseQuality);
                 handleBackstagePasses(item);
             } else {
-                decreaseQuality(item);
-                if (isPastSellInDate(item)) {
-                    decreaseQuality(item);
-                }
+                updateQuality(item, this::decreaseQuality);
             }
+        }
+    }
+
+    private void updateQuality(Item item, Consumer<Item> updateMethod) {
+        updateMethod.accept(item);
+        if (isPastSellInDate(item)) {
+            updateMethod.accept(item);
         }
     }
 
